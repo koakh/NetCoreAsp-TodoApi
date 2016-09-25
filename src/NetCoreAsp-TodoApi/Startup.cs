@@ -7,6 +7,7 @@ using NetCoreAspTodoApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NetCoreAspTodoApi.Models.ToDo;
+using NetCoreAspTodoApi.Models.Movies;
 
 namespace NetCoreAspTodoApi
 {
@@ -41,6 +42,7 @@ namespace NetCoreAspTodoApi
 
             //Register the repositories in DI container
             services.AddSingleton<ITodoRepository, TodoRepository>();
+            services.AddSingleton<IMovieRepository, MovieRepository>();
 
             //Register the ApplicationDbContext in DI container
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -60,7 +62,21 @@ namespace NetCoreAspTodoApi
 
             app.UseApplicationInsightsRequestTelemetry();
 
+            if (env.IsDevelopment())
+            {
+                app.UseStatusCodePages();
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                //app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
             app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseIdentity();
 
             app.UseMvc();
 

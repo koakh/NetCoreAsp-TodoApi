@@ -21,7 +21,8 @@ namespace NetCoreAspTodoApi.Controllers
 
         //GET Todo
         //
-        //The GetAll method returns an IEnumerable.MVC automatically serializes the object to JSON and writes the JSON into the body of the response message. The response code for this method is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
+        //The GetAll method returns an IEnumerable.MVC automatically serializes the object to JSON and writes the JSON into the body of the response message. 
+        //The response code for this method is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
         //        
         //GET /api/todo
         [HttpGet]
@@ -38,7 +39,7 @@ namespace NetCoreAspTodoApi.Controllers
         //If no item matches the requested ID, the method returns a 404 error.This is done by returning NotFound.
         //Otherwise, the method returns 200 with a JSON response body.This is done by returning an ObjectResult
         //
-        //GET /api/todo/{id}
+        //GET /api/<controller>/<id>
         [HttpGet("{id}", Name = "GetTodo")]
         public IActionResult GetById(string id)
         {
@@ -56,7 +57,7 @@ namespace NetCoreAspTodoApi.Controllers
         //The CreatedAtRoute method returns a 201 response, which is the standard response for an HTTP POST method that creates a new resource on the server.
         //CreateAtRoute also adds a Location header to the response. The Location header specifies the URI of the newly created to-do item.
         //
-        //POST /api/todo
+        //POST /api/<controller>
         [HttpPost]
         public IActionResult Insert([FromBody] TodoItem item)
         {
@@ -74,8 +75,7 @@ namespace NetCoreAspTodoApi.Controllers
         //According to the HTTP spec, a PUT request requires the client to send the entire updated entity, not just the deltas. 
         //To support partial updates, use HTTP PATCH.
         //
-        //PUT /api/todo
-
+        //PUT /api/<controller>/<id>
         [HttpPut("{id}")]
         public IActionResult Update(string id, [FromBody] TodoItem item)
         {
@@ -99,7 +99,7 @@ namespace NetCoreAspTodoApi.Controllers
         //To support partial updates, use HTTP PATCH.
         //This overload is similar to the previously shown Update, but uses HTTP PATCH. The response is 204 (No Content).
         //
-        //PATCH /api/todo
+        //PATCH /api/<controller>/<id>
         [HttpPatch("{id}")]
         public IActionResult Update([FromBody] TodoItem item, string id)
         {
@@ -121,9 +121,8 @@ namespace NetCoreAspTodoApi.Controllers
         }
 
         //Delete
-        //
+        //DELETE /api/<controller>/<id>
         //The response is 204 (No Content).
-
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
