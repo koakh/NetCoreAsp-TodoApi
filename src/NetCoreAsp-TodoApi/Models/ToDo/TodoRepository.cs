@@ -1,11 +1,8 @@
-﻿using Bogus;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace NetCoreAspTodoApi.Models
+namespace NetCoreAspTodoApi.Models.ToDo
 {
     public class TodoRepository : ITodoRepository
     {
@@ -28,15 +25,15 @@ namespace NetCoreAspTodoApi.Models
             Add(new TodoItem { Name = "Zontrax" });
         }
 
-        public IEnumerable<TodoItem> GetAll()
-        {
-            return _todos.Values;
-        }
-
         public void Add(TodoItem item)
         {
             item.Key = Guid.NewGuid().ToString();
             _todos[item.Key] = item;
+        }
+
+        public IEnumerable<TodoItem> GetAll()
+        {
+            return _todos.Values;
         }
 
         public TodoItem Find(string key)

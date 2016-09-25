@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetCoreAspTodoApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using NetCoreAspTodoApi.Models.ToDo;
 
 namespace NetCoreAspTodoApi
 {
@@ -42,6 +41,15 @@ namespace NetCoreAspTodoApi
 
             //Register the repositories in DI container
             services.AddSingleton<ITodoRepository, TodoRepository>();
+
+            //Register the ApplicationDbContext in DI container
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Register the ApplicationUser in DI container
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -55,6 +63,9 @@ namespace NetCoreAspTodoApi
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseMvc();
+
+            //Seed Database
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

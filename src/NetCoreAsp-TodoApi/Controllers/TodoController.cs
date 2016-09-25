@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NetCoreAspTodoApi.Models;
+using NetCoreAspTodoApi.Models.ToDo;
 using System.Collections.Generic;
 
 namespace NetCoreAspTodoApi.Controllers
