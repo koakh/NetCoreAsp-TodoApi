@@ -12,6 +12,7 @@ namespace NetCoreAspTodoApi.Data
 
         //Use the DbSet.SqlQuery method for queries that return entity types.The returned objects must be of the type expected by the DbSet object, and they are automatically tracked by the database context unless you turn tracking off. (See the following section about the AsNoTracking method.)
         IEnumerable<T> SqlQuery(string query, params object[] parameters);
+        Task<IEnumerable<T>> SqlQueryAsync(string query, params object[] parameters);
 
         //Use the Database.SqlQuery method for queries that return types that aren't entities. The returned data isn't tracked by the database context, even if you use this method to retrieve entity types.
         //var SqlQuery(string query);

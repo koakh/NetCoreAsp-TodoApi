@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetCoreAspTodoApi.Models.Movies;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace NetCoreAspTodoApi.Controllers
 {
@@ -25,6 +26,24 @@ namespace NetCoreAspTodoApi.Controllers
         {
             //_logger.LogInformation("Listing all items");
             return _repository.GetAll();
+        }
+
+        // GET: /api/<controller>/getfromquery
+        //The response is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
+        [HttpGet("getfromquery", Name = "GetFromQuery")]
+        public IEnumerable<Movie> GetFromQuery()
+        {
+            //_logger.LogInformation("Listing items from query");
+            return _repository.SqlQuery("SELECT * FROM Movie WHERE id >= 1000;");
+        }
+
+        // GET: /api/<controller>/getfromqueryasync
+        //The response is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
+        [HttpGet("getfromqueryasync", Name = "GetFromQueryAsync")]
+        public async Task<IEnumerable<Movie>> GetFromQueryAsync()
+        {
+            //_logger.LogInformation("Listing items from query");
+            return await _repository.SqlQueryAsync("SELECT * FROM Movie WHERE id >= 1000;");
         }
 
         //GET /api/<controller>/{id}

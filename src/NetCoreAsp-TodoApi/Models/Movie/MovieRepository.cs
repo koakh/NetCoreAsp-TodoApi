@@ -24,9 +24,15 @@ namespace NetCoreAspTodoApi.Models.Movies
             return movie;
         }
 
-        public virtual IEnumerable<Movie> SqlQuery(string query, params object[] parameters)
+        public IEnumerable<Movie> SqlQuery(string query, params object[] parameters)
         {
-            return _context.Movie.FromSql(query).AsEnumerable<Movie>();
+            return _context.Movie.FromSql(query);
+        }
+
+        public async Task<IEnumerable<Movie>> SqlQueryAsync(string query, params object[] parameters)
+        {
+            //ToListAsync is an extension method on IQueryable<T> declared in System.Data.Entity.QueryableExtensions
+            return await _context.Movie.FromSql(query).ToListAsync();
         }
 
         public Movie Find(int key, bool readOnly = false)
