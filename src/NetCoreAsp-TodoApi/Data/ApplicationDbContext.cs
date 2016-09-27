@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetCoreAspTodoApi.Models.Movies;
 
-namespace NetCoreAspTodoApi.Models
+namespace NetCoreAspTodoApi.Data
 {
     /// <summary>
     /// The entity framework context with a Employees DbSet

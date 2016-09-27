@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using NetCoreAspTodoApi.Models.ToDo;
 using NetCoreAspTodoApi.Models.Movies;
+using NetCoreAspTodoApi.Data;
 
 namespace NetCoreAspTodoApi
 {

@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using NetCoreAspTodoApi.Data;
+using NetCoreAspTodoApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NetCoreAspTodoApi.Models.Movies
 {
@@ -20,9 +24,18 @@ namespace NetCoreAspTodoApi.Models.Movies
             return movie;
         }
 
-        public Movie Find(int key)
+        public virtual IEnumerable<Movie> SqlQuery(string query, params object[] parameters)
         {
-            var movie = _context.Movie.SingleOrDefault(m => m.ID == key);
+            return _context.Movie.FromSql(query).AsEnumerable<Movie>();
+        }
+
+        public Movie Find(int key, bool readOnly = false)
+        {
+            var movie = (!readOnly)
+                ? _context.Movie.SingleOrDefault(m => m.ID == key)
+                //Avoids having the entities be tracked by the context
+                : _context.Movie.AsNoTracking().SingleOrDefault(m => m.ID == key)
+            ;
             return movie;
         }
 
@@ -39,11 +52,17 @@ namespace NetCoreAspTodoApi.Models.Movies
             _context.SaveChanges();
         }
         
-        //http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/advanced-entity-framework-scenarios-for-an-mvc-web-application
         public void Update(Movie item)
         {
-            _context.Movie.Update(item);
-            _context.SaveChanges();
+            try
+            {
+                _context.Movie.Update(item);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using NetCoreAspTodoApi.Models.Movies;
 using System;
 using System.Linq;
 
-namespace NetCoreAspTodoApi.Models
+namespace NetCoreAspTodoApi.Data
 {
     public static class SeedData
     {

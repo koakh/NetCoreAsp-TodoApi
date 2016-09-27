@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace NetCoreAspTodoApi.Migrations
+namespace NetCoreAspTodoApi.Data.Migrations
 {
     public partial class Start : Migration
     {
