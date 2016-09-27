@@ -38,7 +38,8 @@ namespace NetCoreAspTodoApi.Models.Movies
             _context.Movie.Remove(movie);
             _context.SaveChanges();
         }
-
+        
+        //http://www.asp.net/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/advanced-entity-framework-scenarios-for-an-mvc-web-application
         public void Update(Movie item)
         {
             _context.Movie.Update(item);

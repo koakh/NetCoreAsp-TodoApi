@@ -63,7 +63,7 @@ namespace NetCoreAspTodoApi.Controllers
         public IActionResult Update(int id, [FromBody] [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")] Movie item)
         {
             var check = _repository.Find(id);
-            if (item == null || check.ID != id)
+            if (item == null || check != null && check.ID != id)
             {
                 return BadRequest();
             }
@@ -72,6 +72,7 @@ namespace NetCoreAspTodoApi.Controllers
             {
                 try
                 {
+                    item.ID = id;
                     _repository.Update(item);
                 }
                 catch (DbUpdateConcurrencyException)
