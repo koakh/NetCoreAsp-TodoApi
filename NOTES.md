@@ -4,7 +4,8 @@ Add
 	Models\AccountViewModels\
 	Models\ManageViewModels\
 	Models\ApplicationUser.cs
-from other projetc
+
+from other project
 
 change namespace to NetCoreAspTodoApi.Models.?
 
