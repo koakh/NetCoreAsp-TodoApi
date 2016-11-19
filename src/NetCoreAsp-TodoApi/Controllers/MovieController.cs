@@ -22,6 +22,7 @@ namespace NetCoreAspTodoApi.Controllers
 
         // GET: /api/<controller>/
         //The response is 200, assuming there are no unhandled exceptions. (Unhandled exceptions are translated into 5xx errors.)
+        [HttpGet]
         public IEnumerable<Movie> Index()
         {
             //_logger.LogInformation("Listing all items");

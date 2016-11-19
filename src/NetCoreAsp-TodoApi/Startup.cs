@@ -45,6 +45,9 @@ namespace NetCoreAspTodoApi
             services.AddSingleton<ITodoRepository, TodoRepository>();
             services.AddSingleton<IMovieRepository, MovieRepository>();
 
+            // Inject an implementation of ISwaggerProvider with defaulted settings applied
+            services.AddSwaggerGen();
+
             //Register the ApplicationDbContext in DI container
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -80,6 +83,12 @@ namespace NetCoreAspTodoApi
             app.UseIdentity();
 
             app.UseMvc();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            app.UseSwaggerUi();
 
             //Seed Database
             SeedData.Initialize(app.ApplicationServices);
